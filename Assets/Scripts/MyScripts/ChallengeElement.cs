@@ -85,7 +85,11 @@ public class ChallengeElement : MonoBehaviour
         {
             bet_mount.text = Global.balance.ToString();
         }
-        socket.Emit("invite a challenge", JsonUtility.ToJson(userList));
+        if (Global.socketConnected)
+        {
+            socket.Emit("invite a challenge", JsonUtility.ToJson(userList));
+        }
+
         // socket.Emit("get challenges", JsonUtility.ToJson(Global.m_user));
         // socket.Emit("deleteRoom", JsonUtility.ToJson(new Room(roomName, roomID)));
     }

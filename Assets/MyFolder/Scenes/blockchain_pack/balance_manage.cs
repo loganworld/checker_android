@@ -31,8 +31,11 @@ public class balance_manage : MonoBehaviour
     }
     void balance_update()
     {
-        SocketIOController.instance.Emit("get balance", JsonUtility.ToJson(Global.m_user));
-        SocketIOController.instance.Emit("get transactions", JsonUtility.ToJson(Global.m_user));
+        if (Global.socketConnected)
+        {
+            SocketIOController.instance.Emit("get balance", JsonUtility.ToJson(Global.m_user));
+            SocketIOController.instance.Emit("get transactions", JsonUtility.ToJson(Global.m_user));
+        }
     }
 
     void setbalance(SocketIOEvent socketIOEvent)
@@ -56,7 +59,11 @@ public class balance_manage : MonoBehaviour
         if (amount.text == "")
             return;
         Debug.Log((float)Math.Round(double.Parse(amount.text), 6));
-        socket.Emit("withdraw", JsonUtility.ToJson(new Withdraw_class(Global.m_user.id, (float)Math.Round(double.Parse(amount.text), 6), toaddress.text)));
+        if (Global.socketConnected)
+        {
+            socket.Emit("withdraw", JsonUtility.ToJson(new Withdraw_class(Global.m_user.id, (float)Math.Round(double.Parse(amount.text), 6), toaddress.text)));
+        }
+
     }
 }
 [Serializable]

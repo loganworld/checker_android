@@ -20256,6 +20256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fcb973644ab1484fae0108070679045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  username: {fileID: 5126569118024635099}
   balance: {fileID: 5126569117537637274}
   address: {fileID: 7069763723738192697}
   toaddress: {fileID: 2080272165087775110}

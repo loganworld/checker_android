@@ -12,7 +12,7 @@ public class Global
 
     public static string currentDomain = "";
 
-    public static bool isTesting = true;
+    public static bool isTesting = false;
     public static string testingURL = "localhost";
     public static int testingPORT = 3000;
 
