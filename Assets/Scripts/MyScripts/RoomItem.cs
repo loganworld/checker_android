@@ -30,7 +30,6 @@ public class RoomItem : MonoBehaviour
 
     public void SetProps(string name, string id, string amount)
     {
-        Debug.Log("name == " + amount);
         this.id = id;
         this.name = name;
         c_name.text = name;

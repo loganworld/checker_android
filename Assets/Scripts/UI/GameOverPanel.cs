@@ -30,8 +30,17 @@ public class GameOverPanel : MonoBehaviour
 
             socket.Emit("increaseScore", JsonUtility.ToJson(Global.m_user));
 
+
             if (PlayerPrefs.GetInt("VsCPU", 1) != 1)
-                socket.Emit("set winner", JsonUtility.ToJson(Global.m_user));
+            {
+                User winUser = new User();
+                winUser.name = Global.m_user.name;
+                winUser.address = PlayerPrefs.GetString("RoomID");
+
+                socket.Emit("set winner", JsonUtility.ToJson(winUser));
+                //socket.Emit("set winner", JsonUtility.ToJson(Global.m_user));
+            }
+
 
         }
         else
@@ -73,7 +82,7 @@ public class GameOverPanel : MonoBehaviour
 
                 socket.Emit("deleteRoom", JsonUtility.ToJson(new Room(roomName, roomID, room_amount)));
             }
-            Destroy(socket.gameObject);
+            //Destroy(socket.gameObject);
         }
 
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);

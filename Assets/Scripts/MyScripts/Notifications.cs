@@ -11,7 +11,7 @@ public class Notifications : MonoBehaviour
 
     SocketIOController socket;
     bool isActive = false;
-
+    
 
 
     // Start is called before the first frame update
@@ -27,15 +27,12 @@ public class Notifications : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
         // check notifications
-        if (Global.socketConnected)
-        {
+        if(Global.socketConnected){
             socket.Emit("get challenges", JsonUtility.ToJson(Global.m_user));
         }
-        else
-        {
+        else {
             StartCoroutine(GetChallenge());
-        }
-
+        }    
     }
     private void GotChallengeNotifications(SocketIOEvent socketIOEvent)
     {
@@ -48,7 +45,7 @@ public class Notifications : MonoBehaviour
             {
                 objActive.SetActive(false);
             }
-
+            
         }
         else
         {
@@ -60,17 +57,17 @@ public class Notifications : MonoBehaviour
                 // update challenges
                 //socket.Emit("get challenges", JsonUtility.ToJson(Global.m_user));
             }
-
+                
         }
 
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
-
+    
 }

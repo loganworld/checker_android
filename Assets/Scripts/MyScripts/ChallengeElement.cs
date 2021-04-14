@@ -85,11 +85,7 @@ public class ChallengeElement : MonoBehaviour
         {
             bet_mount.text = Global.balance.ToString();
         }
-        if (Global.socketConnected)
-        {
-            socket.Emit("invite a challenge", JsonUtility.ToJson(userList));
-        }
-
+        socket.Emit("invite a challenge", JsonUtility.ToJson(userList));
         // socket.Emit("get challenges", JsonUtility.ToJson(Global.m_user));
         // socket.Emit("deleteRoom", JsonUtility.ToJson(new Room(roomName, roomID)));
     }
@@ -101,6 +97,7 @@ public class ChallengeElement : MonoBehaviour
 
         userList.users.Add(new User(userId, name.text));
         userList.users.Add(Global.m_user);
+        userList.users.Add(new User(-1, room_amount));
 
         if (room_amount == "" || room_amount == null || float.Parse(room_amount) > Global.balance)
             return;

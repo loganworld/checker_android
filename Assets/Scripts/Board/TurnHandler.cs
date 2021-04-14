@@ -35,6 +35,7 @@ public class TurnHandler : MonoBehaviour
         isGameVsCPU = PlayerPrefs.GetInt("VsCPU") == 1;
         socket = SocketIOController.instance;
         socket.On("gave up", GaveUp);
+        socket.On("other disconnected", Disconnected);
     }
 
     private void Start()
@@ -93,7 +94,7 @@ public class TurnHandler : MonoBehaviour
         if (GameManager.Instance.gameType == GameManager.GameType.VSPLAYERS)
         {
             GameManager.Instance.socket.Emit("leaveRoom");
-            Destroy(SocketIOController.instance.gameObject);
+            //Destroy(SocketIOController.instance.gameObject);
             SceneManager.LoadScene("MainMenu");
         }
         else
@@ -106,6 +107,8 @@ public class TurnHandler : MonoBehaviour
 
         }
     }
+
+
 
     public void GiveUp()
     {
@@ -128,6 +131,12 @@ public class TurnHandler : MonoBehaviour
         }
 
     }
+
+    void Disconnected(SocketIOEvent socketIOEvent)
+    {
+        EndGame(turn);
+    }
+
     void GaveUp(SocketIOEvent socketIOEvent)
     {
         Debug.Log("called 222222");

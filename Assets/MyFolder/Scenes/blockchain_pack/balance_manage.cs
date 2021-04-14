@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System;
 public class balance_manage : MonoBehaviour
 {
+    public TextMeshProUGUI username;
     public TextMeshProUGUI balance;
     public TMP_InputField address;
     public TMP_InputField toaddress;
@@ -20,21 +21,29 @@ public class balance_manage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        username.text = Global.m_user.name;
         socket = SocketIOController.instance;
         socket.On("sent balance", setbalance);
     }
 
     public void get_info()
     {
-        balance_update();
+
+        StartCoroutine(balance_update());
         deposit();
     }
-    void balance_update()
+    IEnumerator balance_update()
     {
+        yield return new WaitForSeconds(0.2f);
+
         if (Global.socketConnected)
         {
-            SocketIOController.instance.Emit("get balance", JsonUtility.ToJson(Global.m_user));
+            socket.Emit("get balance", JsonUtility.ToJson(Global.m_user));
             SocketIOController.instance.Emit("get transactions", JsonUtility.ToJson(Global.m_user));
+        }
+        else
+        {
+            StartCoroutine(balance_update());
         }
     }
 
@@ -59,11 +68,7 @@ public class balance_manage : MonoBehaviour
         if (amount.text == "")
             return;
         Debug.Log((float)Math.Round(double.Parse(amount.text), 6));
-        if (Global.socketConnected)
-        {
-            socket.Emit("withdraw", JsonUtility.ToJson(new Withdraw_class(Global.m_user.id, (float)Math.Round(double.Parse(amount.text), 6), toaddress.text)));
-        }
-
+        socket.Emit("withdraw", JsonUtility.ToJson(new Withdraw_class(Global.m_user.id, (float)Math.Round(double.Parse(amount.text), 6), toaddress.text)));
     }
 }
 [Serializable]

@@ -20,12 +20,12 @@ public class MultiMenuManager : MonoBehaviour
 
     public GameObject room_contents;
     public GameObject roomPrefab;
-    public GameObject tx_contents;
-    public GameObject txPrefab;
     SocketIOController socket;
 
     public InputField c_RoomName;
     public InputField c_Bet_amount;
+    public GameObject tx_contents;
+    public GameObject txPrefab;
 
 
     public GameObject userContent;
@@ -58,7 +58,6 @@ public class MultiMenuManager : MonoBehaviour
         socket.On("createdRoom", OnCreatedRoom);
         socket.On("show users", GetUsers);
         socket.On("show challenges", GetChallenges);
-
         socket.On("show transaction", ShowTransaction);
 
         StartCoroutine(iShowRooms());
@@ -66,7 +65,6 @@ public class MultiMenuManager : MonoBehaviour
         //socket.Emit("get room list");
 
     }
-
     void ShowTransaction(SocketIOEvent socketIOEvent)
     {
         Debug.Log(socketIOEvent.data);
@@ -281,8 +279,7 @@ public class MultiMenuManager : MonoBehaviour
             index++;
             temp = Instantiate(roomPrefab) as GameObject;
             temp.transform.name = index.ToString();
-            temp.GetComponent<RoomItem>().SetProps(room.name, room.id, room.amount);
-            temp.transform.SetParent(room_contents.transform);
+            temp.GetComponent<RoomItem>().SetProps(room.name, room.id, room.amount); temp.transform.SetParent(room_contents.transform);
             temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
         }
@@ -352,7 +349,6 @@ public class MultiMenuManager : MonoBehaviour
     {
         if (c_RoomName.text == "")
             return;
-
         if (c_Bet_amount.text == "")
             return;
 
@@ -461,6 +457,7 @@ public class ChallengeList
         return JsonUtility.FromJson<ChallengeList>(data);
     }
 }
+
 
 [Serializable]
 public class Transaction
