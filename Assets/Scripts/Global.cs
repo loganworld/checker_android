@@ -6,9 +6,9 @@ using UnityEngine;
 public class Global
 {
     //public static string DOMAIN = "annagozzy.com";
-    public static string DOMAIN = "checkers.multiplays.net";//"31.220.51.132";// /serverchecker";
-    public static int PORT = 0;//3000;
-    public static bool SSL_ENALBLED = true;
+    public static string DOMAIN = "31.220.51.132";// /serverchecker";
+    public static int PORT = 3000;
+    public static bool SSL_ENALBLED = false;
 
     public static string currentDomain = "";
 
