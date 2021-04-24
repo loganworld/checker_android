@@ -35,6 +35,7 @@ public class Single_bet : MonoBehaviour
             amount=0;
         
         PlayerPrefs.SetFloat("Ai_Bet_Amount", amount);
+        PlayerPrefs.SetInt("Difficulty", 5);
 
         socket.Emit("start bet ai",JsonUtility.ToJson(new Ai_Bet(Global.m_user.id,amount)));
         gameObject.SetActive(false);
