@@ -61,6 +61,16 @@ public class ChallengeElement : MonoBehaviour
         if (btnName.text == "CHALLENGE")
         {
             bet_mount.text = PlayerPrefs.GetString("challenge_amount");
+            
+            if(bet_mount.text=="")
+                {
+                    bet_mount.text="0";
+                }
+            
+            if(float.Parse(bet_mount.text)>Global.balance)
+                bet_mount.text=Global.balance.ToString();
+            if(Global.balance<10)
+                bet_mount.text="0";
         }
     }
 
@@ -74,8 +84,6 @@ public class ChallengeElement : MonoBehaviour
         userList.users.Add(Global.m_user);
         userList.users.Add(new User(userId, name.text));
 
-        userList.users.Add(new User(-1, room_amount));
-
         bet_mount.text = PlayerPrefs.GetString("challenge_amount");
 
         if (bet_mount.text == "" || bet_mount.text == null)
@@ -85,6 +93,8 @@ public class ChallengeElement : MonoBehaviour
         {
             bet_mount.text = Global.balance.ToString();
         }
+
+        userList.users.Add(new User(-1, bet_mount.text));
         socket.Emit("invite a challenge", JsonUtility.ToJson(userList));
         // socket.Emit("get challenges", JsonUtility.ToJson(Global.m_user));
         // socket.Emit("deleteRoom", JsonUtility.ToJson(new Room(roomName, roomID)));

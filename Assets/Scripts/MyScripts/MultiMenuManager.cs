@@ -293,6 +293,15 @@ public class MultiMenuManager : MonoBehaviour
     public void OnChangedBetAmount()
     {
         var value = challengeBetAmount.text;
+        if(value=="")
+                {
+                    value="0";
+                }
+                
+        if(float.Parse(value)<10)
+                {
+                    value="0";
+                }
         Debug.Log(value);
         PlayerPrefs.SetString("challenge_amount", value.ToString());
     }
@@ -354,6 +363,9 @@ public class MultiMenuManager : MonoBehaviour
 
         if (float.Parse(c_Bet_amount.text) > Global.balance)
             c_Bet_amount.text = Global.balance.ToString();
+
+        if(float.Parse(c_Bet_amount.text)<10)
+            c_Bet_amount.text="0";
         //CreateRoomWindow.SetActive(false);
         //CreatedRoomPopup.SetActive(true);
         //RoomWindow.SetActive(false);

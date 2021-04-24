@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PlaySceneLoader : MonoBehaviour
 {
+    
     public MenuAudio MenuAudio;
     
     public void LoadMultiPlayScene()
@@ -12,6 +13,7 @@ public class PlaySceneLoader : MonoBehaviour
 
     public void LoadMainPlayScene()
     {
+        PlayerPrefs.SetFloat("Ai_Bet_Amount",0);
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
     }
 
